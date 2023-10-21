@@ -2,7 +2,10 @@ const Cart = require("../models/cartModel");
 
 const removeFromCart = async (req, res) => {
   try {
-    const { userId, productId } = req.body;
+    const { productId } = req.params;
+    const userId = req.cookies['userId'];
+    console.log(productId);
+    console.log(userId);
     const userCart = await Cart.findOne({ userId });
     if (userCart) {
       // Check if the product exists in the user's cart

@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken')
 
 function authenticateToken(req, res, next) {
   const token = req.cookies['jwtuser'];
@@ -14,8 +14,10 @@ function authenticateToken(req, res, next) {
 
     // The user object in the decoded token can be used for further authorization checks.
     req.user = user;
+    res.cookie("userId", user.userId); // Set the cookie as "userId"
     next();
   });
 }
+
 
 module.exports = authenticateToken

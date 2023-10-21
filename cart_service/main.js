@@ -1,10 +1,13 @@
 const express = require('express')
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser"); 
 const app = express()
 
 //environment variables
 dotenv.config({ path: "./.env" });
+
+app.use(cookieParser());
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true })); 
@@ -20,7 +23,7 @@ mongoose
 
 app.get('/cart',(req,res)=>res.send('cart service'))
 
-app.use('/',require('./routes/routes.js'))
+app.use('/cart',require('./routes/routes.js'))
 
 
 const PORT = process.env.PORT || 5000

@@ -3,9 +3,11 @@ const axios = require("axios");
 
 const addToCart = async (req, res) => {
   try {
-    const { userId, productId } = req.body;
+    const { productId } = req.body;
+    const userId = req.cookies['userId'];
+    console.log(userId);
     const { data } = await axios.get(
-      `http://localhost:4001/get-product/${productId}`
+      `http://localhost:4002/products/get-product/${productId}`
     );
     const { stock } = data.product;
     const userCart = await Cart.findOne({ userId });
