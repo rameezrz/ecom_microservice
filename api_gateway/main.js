@@ -7,10 +7,10 @@ const app = express();
 const authenticateToken = require('./utils/verifyUser')
 
 dotenv.config({ path: "./.env" });
+app.use(cookieParser());
+
 
 app.get('/', (req, res) => res.send('API Gateway'));
-
-app.use(cookieParser());
 
 const routes = {
   '/auth': 'http://localhost:4001',

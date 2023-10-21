@@ -9,7 +9,7 @@ function authenticateToken(req, res, next) {
 
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
-      return res.status(403).json({ message: "Forbidden" });
+      return res.status(403).json({ message: "Unauthorized access. Please log in to obtain a valid token and try again." });
     }
 
     // The user object in the decoded token can be used for further authorization checks.
