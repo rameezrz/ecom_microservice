@@ -18,8 +18,9 @@ mongoose
   .then(() => console.log("Product DB Connection Successful"))
   .catch((e) => console.log("Error : ", e));
 
+app.get('/products',(req,res)=>res.send('products service'))
 
-app.use('/',require('./routes/routes'))
+app.use('/products',require('./routes/routes'))
 
 
 const PORT = process.env.PORT || 5000

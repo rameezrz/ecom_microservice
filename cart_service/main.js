@@ -18,6 +18,7 @@ mongoose
   .then(() => console.log("Cart DB Connection Successful"))
   .catch((e) => console.log("Error : ", e));
 
+app.get('/cart',(req,res)=>res.send('cart service'))
 
 app.use('/',require('./routes/routes.js'))
 

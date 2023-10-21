@@ -1,0 +1,27 @@
+version: '3'
+services:
+  api_gateway:
+    container_name: 'api_gateway'
+    build: ./api_gateway
+    ports:
+      - 4000:4000
+  auth_service:
+    container_name: 'auth_service'
+    build: ./auth_service
+    ports:
+      - 4001:4001
+  product_service:
+    container_name: 'product_service'
+    build: ./product_service
+    ports:
+      - 4002:4002
+  cart_service:
+    container_name: 'cart_service'
+    build: ./cart_service
+    ports:
+      - 4003:4003
+  order_service:
+    container_name: 'order_service'
+    build: ./order_service
+    ports:
+      - 4004:4004

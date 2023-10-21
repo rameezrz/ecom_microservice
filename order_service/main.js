@@ -18,6 +18,7 @@ mongoose
   .then(() => console.log("Order DB Connection Successful"))
   .catch((e) => console.log("Error : ", e));
 
+app.get('/order',(req,res)=>res.send('order service'))
 
 app.use('/',require('./routes/routes'))
 
