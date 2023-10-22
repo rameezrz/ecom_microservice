@@ -16,7 +16,7 @@ const routes = {
   '/auth': 'http://localhost:4001',
   '/products': 'http://localhost:4002',
   '/cart': 'http://localhost:4003',
-  '/order': 'http://localhost:4004',
+  '/orders': 'http://localhost:4004',
 };
 
 for (const route in routes) {

@@ -26,3 +26,8 @@ app.use('/products',require('./routes/routes'))
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT,()=>console.log("product server running", PORT))
+
+const {init} = require('./kafka/admin')
+init()
+const {productConsumer} = require('./kafka/consumer')
+productConsumer()
