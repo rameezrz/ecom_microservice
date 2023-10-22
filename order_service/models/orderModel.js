@@ -20,7 +20,7 @@ const orderModel = new mongoose.Schema(
     },
     products: [
       {
-        item: {
+        productId: {
           type: mongoose.Schema.Types.ObjectId,
           required: true,
         },

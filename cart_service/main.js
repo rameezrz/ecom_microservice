@@ -29,3 +29,11 @@ app.use('/cart',require('./routes/routes.js'))
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT,()=>console.log("Cart server running", PORT))
+
+const {init} = require('./kafka/admin.js')
+init()
+
+const { cartConsumer } = require('./kafka/consumer');
+
+cartConsumer(); 
+
