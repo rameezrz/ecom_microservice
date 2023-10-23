@@ -18,9 +18,10 @@ mongoose
   .then(() => console.log("Connection Successful"))
   .catch((e) => console.log("Error : ", e));
 
-app.get('/auth',(req,res)=>res.send('auth service'))
+app.get(process.env.USER_BASE_URL,(req,res)=>res.send('auth service'))
 
-app.use('/auth', require('./routes/routes'))
+app.use(process.env.USER_BASE_URL, require('./routes/userRoutes'))
+app.use(process.env.ADMIN_BASE_URL, require('./routes/adminRoutes'))
 
 const PORT = process.env.PORT || 5000
 

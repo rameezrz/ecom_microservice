@@ -14,6 +14,13 @@ function authenticateAdminToken(req, res, next) {
 
     // The user object in the decoded token can be used for further authorization checks.
     req.user = user;
+    
+    // Send the token back to the client as a response
+    res.cookie("admin", true, {
+      httpOnly: true,
+      sameSite: "strict",
+      maxAge: 2 * 24 * 60 * 60 * 1000,
+    });
     next();
   });
 }

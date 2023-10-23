@@ -1,3 +1,5 @@
+const jwt = require("jsonwebtoken");
+
 const signInAdmin = (req, res) => {
   try {
     const { email, password } = req.body;
@@ -12,7 +14,7 @@ const signInAdmin = (req, res) => {
       res.cookie("jwtAdmin", token, {
         httpOnly: true,
         sameSite: "strict",
-        maxAge: 30 * 24 * 60 * 60 * 1000,
+        maxAge: 2 * 24 * 60 * 60 * 1000,
       });
 
       // You can also send additional user information in the response if needed
