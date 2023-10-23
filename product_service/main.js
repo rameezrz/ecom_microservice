@@ -29,5 +29,6 @@ app.listen(PORT,()=>console.log("product server running", PORT))
 
 const {init} = require('./kafka/admin')
 init()
-const {productConsumer} = require('./kafka/consumer')
-productConsumer()
+const {productConsumer1,productConsumer2} = require('./kafka/consumer')
+productConsumer1()
+productConsumer2()

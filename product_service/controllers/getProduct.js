@@ -1,5 +1,5 @@
 const Product = require("../models/productModel");
-const amqp = require("amqplib/callback_api");
+
 
 const getProduct = async (req, res) => {
   try {
@@ -24,40 +24,5 @@ const getProduct = async (req, res) => {
     });
   }
 };
-
-const productIdPromise = new Promise((resolve, reject) => {
-  amqp.connect("amqp://localhost", (err, conn) => {
-    conn.createChannel((err, ch) => {
-      const queueToReceive = "cart_to_product";
-      ch.assertQueue(queueToReceive, { durable: false });
-      console.log("Waiting");
-      ch.consume(
-        queueToReceive,
-        (msg) => {
-          console.log(
-            `received ${msg.content.toString()} from ${queueToReceive}`
-          );
-          const productId = msg.content.toString();
-          resolve(productId);
-        },
-        { noAck: true }
-      );
-    });
-  });
-});
-
-productIdPromise.then(async(productId) => {
-  const product = await Product.findById(productId)
-  console.log(product);
-  amqp.connect('amqp://localhost',(err,conn)=>{
-      conn.createChannel((err,ch)=>{
-        const queueToSend = 'product_to_cart'
-        const msg = JSON.stringify(product)
-        ch.assertQueue(queueToSend,{durable:true})
-        ch.sendToQueue(queueToSend,Buffer.from(msg))
-        console.log(`Sent ${msg} to ${queueToSend}`);
-      })
-    })
-});
 
 module.exports = { getProduct };

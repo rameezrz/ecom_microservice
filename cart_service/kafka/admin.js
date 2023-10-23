@@ -6,7 +6,8 @@ exports.init = async()=>{
     console.log("Admin Connected");
     await admin.createTopics({
         topics:[{
-            topic:'cart_to_product'
+            topic:'cart_to_product',
+            topic:'add_to_cart'
         }]
     })
 
