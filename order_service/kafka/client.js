@@ -1,6 +1,7 @@
-const {Kafka} = require('kafkajs')
+const { Kafka, logLevel } = require('kafkajs')
 
 exports.kafka = new Kafka({
-    clientId:'ecom_microservice',
-    brokers:['localhost:9092']
+  clientId: 'my-app',
+  brokers: ['kafka:9092'],
+  logLevel: logLevel.ERROR
 })

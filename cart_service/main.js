@@ -21,9 +21,9 @@ mongoose
   .then(() => console.log("Cart DB Connection Successful"))
   .catch((e) => console.log("Error : ", e));
 
-app.get('/cart',(req,res)=>res.send('cart service'))
+  app.get(process.env.USER_BASE_URL,(req,res)=>res.send('Cart service'))
 
-app.use('/cart',require('./routes/routes.js'))
+  app.use(process.env.USER_BASE_URL, require('./routes/userRoutes'))
 
 
 const PORT = process.env.PORT || 5000

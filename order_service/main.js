@@ -20,9 +20,9 @@ mongoose
   .then(() => console.log("Order DB Connection Successful"))
   .catch((e) => console.log("Error : ", e));
 
-app.get('/orders',(req,res)=>res.send('order service'))
+  app.get(process.env.USER_BASE_URL,(req,res)=>res.send('Order service'))
 
-app.use('/orders',require('./routes/routes'))
+  app.use(process.env.USER_BASE_URL, require('./routes/userRoutes'))
 
 
 const PORT = process.env.PORT || 5000

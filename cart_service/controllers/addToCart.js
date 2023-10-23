@@ -67,7 +67,7 @@ const addToCart = async (req, res) => {
         userId,
         products: [{ item: productId, quantity: 1 }],
       });
-      await newCart.save();
+      await userCart.save();
     }
     return res.status(200).json({
       success: true,
