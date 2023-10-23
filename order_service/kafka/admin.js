@@ -8,7 +8,8 @@ exports.init = async()=>{
 
     await admin.createTopics({
         topics:[{
-            topic:'order_to_cart'
+            topic:'order_to_cart',
+            topic:'order_created'
         }]
     })
 

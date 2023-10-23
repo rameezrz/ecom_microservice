@@ -33,8 +33,8 @@ app.listen(PORT,()=>console.log("Cart server running", PORT))
 const {init} = require('./kafka/admin.js')
 init()
 
-const { cartConsumer1, cartConsumer2 } = require('./kafka/consumer');
+const { cartConsumer1,cartConsumer3 } = require('./kafka/consumer');
 
 cartConsumer1(); 
-cartConsumer2()
+cartConsumer3()
 

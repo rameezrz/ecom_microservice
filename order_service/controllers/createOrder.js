@@ -11,7 +11,7 @@ const createOrder = async(req, res) => {
 
       const userId = req.cookies['userId']
       console.log(userId);
-      await orderProducer(userId)
+      await orderProducer(userId,"order_to_cart")
       const products = await orderConsumer()
       if(products.length===0){
         return res.status(300).json({
@@ -32,8 +32,16 @@ const createOrder = async(req, res) => {
       products
     });
     console.log(newOrder);
-    newOrder.save().then((order) => {
-      console.log("new order saved");
+    newOrder.save().then(async(order) => {
+      const message = {
+        userId: newOrder.userId,
+        products: newOrder.products.map((product) => ({
+          productId: product.productId,
+          quantity: product.quantity,
+        })),
+      };          
+      await orderProducer(Buffer.from(JSON.stringify(message)),"order_created") 
+      console.log("order created message sent");
       res.status(200).json({
         success: true,
         message: "Order created successfully",

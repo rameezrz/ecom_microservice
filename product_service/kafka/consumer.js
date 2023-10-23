@@ -110,4 +110,45 @@ const productConsumer2 = async () => {
   });
 };
 
-module.exports = { productConsumer1, productConsumer2 };
+const productConsumer3 = async () => {
+  return new Promise(async (resolve, reject) => {
+    const consumer = kafka.consumer({ groupId: "group7" });
+    await consumer.connect();
+    console.log("consumer 7 connected");
+    await consumer.subscribe({
+      topics: ["order_created"],
+      fromBeginning: true,
+    });
+    console.log("consumer 7 subscribed");
+    await consumer.run({
+      eachMessage: async ({ topic, partition, message }) => {
+        try {
+          if (message) {
+            console.log("Consumer 7 got a message");
+            const orderDetails = JSON.parse(message.value.toString())
+            console.log(orderDetails);
+            console.log('-------------------------------');
+            const {products} = orderDetails
+            const bulkOperations = products.map((product) => ({
+              updateOne: {
+                filter: { _id: product.productId },
+                update: { $inc: { stock: -product.quantity } }, // Decrement stock by the specified quantity
+              },
+            }));
+            await Product.bulkWrite(bulkOperations);
+            console.log("stock decremented");
+            console.log('-------------------------------');
+            resolve(message.value.toString());
+          } else {
+            reject("Received undefined message.");
+          }
+        } catch (error) {
+          console.error("Error processing message:", error);
+          reject(error.message);
+        }
+      },
+    });
+  });
+};
+
+module.exports = { productConsumer1, productConsumer2,productConsumer3 };
