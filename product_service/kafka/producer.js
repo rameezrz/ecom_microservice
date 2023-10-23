@@ -1,12 +1,12 @@
 const {kafka} = require('./client')
 
 
-const productProducer = async(message)=>{
+const productProducer = async(message,topic)=>{
     const producer = kafka.producer()
     await producer.connect()
 
     await producer.send({
-        topic:'product_to_order',
+        topic,
         messages:[{
             key:'user-cart',
             value:message
