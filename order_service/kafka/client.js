@@ -2,6 +2,6 @@ const { Kafka, logLevel } = require('kafkajs')
 
 exports.kafka = new Kafka({
   clientId: 'my-app',
-  brokers: ['kafka:9092'],
+  brokers: [process.env.KAFKA_BROKER_PORT],
   logLevel: logLevel.ERROR
 })

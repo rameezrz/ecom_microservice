@@ -7,7 +7,7 @@ const app = express();
 const verifyUser = require('./utils/verifyUser')
 const verifyAdmin = require('./utils/verifyAdmin')
 
-dotenv.config({ path: "./.env" });
+dotenv.config({ path: "./.env" }); 
 app.use(cookieParser());
 
 const BASE_URL = '/api/v1'
