@@ -4,8 +4,8 @@ const getAllProducts = async (req, res) => {
   try {
     const products = await Product.find();
     if (products.length===0) {
-      return res.status(200).json({
-        success: false,
+      return res.status(404).json({
+        success: true,
         message: "No Products in the Database",
       });
     }

@@ -29,9 +29,9 @@ const PORT = process.env.PORT || 5000
 
 app.listen(PORT,()=>console.log("product server running", PORT))
 
-const {init} = require('./kafka/admin')
-init()
-const {productConsumer1,productConsumer2,productConsumer3} = require('./kafka/consumer')
-productConsumer1()
-productConsumer2()
-productConsumer3()
+// const {init} = require('./kafka/admin')
+// init()
+// const {productConsumer1,productConsumer2,productConsumer3} = require('./kafka/consumer')
+// productConsumer1()
+// productConsumer2()
+// productConsumer3()

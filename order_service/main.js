@@ -23,11 +23,12 @@ mongoose
   app.get(process.env.USER_BASE_URL,(req,res)=>res.send('Order service'))
 
   app.use(process.env.USER_BASE_URL, require('./routes/userRoutes'))
+  app.use(process.env.ADMIN_BASE_URL, require('./routes/adminRoutes'))
 
 
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT,()=>console.log("Order server running", PORT))
 
-const {init} = require('./kafka/admin')
-init()
+// const {init} = require('./kafka/admin')
+// init()

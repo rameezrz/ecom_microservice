@@ -4,7 +4,7 @@ const {cartConsumer2} = require('../kafka/consumer')
 
 const addToCart = async (req, res) => {
   try {
-    const { productId } = req.body;
+    const { productId,quantity } = req.body;
     const userId = req.cookies["userId"];
     await cartProducer(productId, 'add_to_cart');
     console.log('====================================');
@@ -22,7 +22,7 @@ const addToCart = async (req, res) => {
       });
     }
 
-    if (product.stock <= 0) {
+    if (product.stock <= 0 || product.stock <= quantity) {
       return res.status(200).json({
         success: false,
         message: "Out of Stock",
@@ -39,7 +39,7 @@ const addToCart = async (req, res) => {
           userCart = await Cart.findOneAndUpdate(
             { userId, "products.item": productId },
             {
-              $inc: { "products.$.quantity": 1 },
+              $inc: { "products.$.quantity": quantity },
             },
             {
               new: true,
@@ -55,7 +55,7 @@ const addToCart = async (req, res) => {
         userCart = await Cart.findOneAndUpdate(
           { userId },
           {
-            $push: { products: { item: productId, quantity: 1 } },
+            $push: { products: { item: productId, quantity: quantity } },
           },
           {
             new: true,
@@ -65,7 +65,7 @@ const addToCart = async (req, res) => {
     } else {
       userCart = new Cart({
         userId,
-        products: [{ item: productId, quantity: 1 }],
+        products: [{ item: productId, quantity: quantity }],
       });
       await userCart.save();
     }
